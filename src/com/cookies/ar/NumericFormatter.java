@@ -34,6 +34,7 @@ public class NumericFormatter {
 			return price;
 		}
 		return formattedString;
+		
 	}
 	
 	public static String formatPrice(float price) {

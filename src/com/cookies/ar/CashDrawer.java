@@ -126,6 +126,7 @@ public class CashDrawer {
 		}
 		
 	}
+
 	
 	public void printBalanceReport() {
 		System.out.println("The total is: $" + NumericFormatter.formatPrice(getTotal()));

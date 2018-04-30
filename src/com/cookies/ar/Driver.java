@@ -6,6 +6,7 @@ public class Driver {
 //		double sales[] = {35.99, 35.99, 9.78, 54.68, 10.00};
 		
 		int count = args.length;
+
 		
 		if(count==0) {
 			System.out.println("You must enter sale prices.");

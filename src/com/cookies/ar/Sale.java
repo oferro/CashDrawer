@@ -36,6 +36,7 @@ public class Sale {
 		this.total = total;
 	}
 
+	
 //	--------------------------------- Methods --------------------------------------------------
 
 	public String getTotalAsString() {

@@ -3,6 +3,7 @@ package com.cookies.ar;
 public class CashSale extends Sale {
 
 //	--------------------------------- Constractor -----------------------------------------------
+
 	
 	public CashSale() {
 	}
