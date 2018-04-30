@@ -1,0 +1,10 @@
+		float sales[] = {35.99f, 35.99f, 9.78f, 54.68f, 10.00f};
+		int count = sales.length;
+		float total = 0;
+		for (int i=0;i < count;++i)
+			total += sales[i];
+
+		float average = total / count;
+		
+		System.out.println("The total is: $" + total);
+		System.out.println("The average is: $" + average);

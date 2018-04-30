@@ -1,0 +1,2 @@
+int i = 1;
+System.out.print("It's as easy as "+ i++ + i++ + i);
