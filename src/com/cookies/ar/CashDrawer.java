@@ -1,11 +1,12 @@
 package com.cookies.ar;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 public class CashDrawer {
 
-	private Vector<Sale> sales = new Vector<Sale>();   // Configure the Vector
+	private List<Sale> sales = new Vector<Sale>();   // Configure the Vector
 	private double total = 0;
 	private float highest = Float.MIN_VALUE;
 	private float lowest = Float.MAX_VALUE;
@@ -119,9 +120,9 @@ public class CashDrawer {
 		int index = 0;
 		while (iterator.hasNext()) {
 			Sale sale = iterator.next();
-			System.out.println("Sales "+ index + " Total Prices: $"+sale.getTotalAsString());
+//			System.out.println("Sales "+ index + " Total Prices: $"+sale.getTotalAsString());
 //			System.out.println("Sales "+ index + " Total Prices: $"+sale.toString());
-//			System.out.println("Sales "+ index + " Total Prices: $"+sale);
+			System.out.format("Sales %d Total Prices: $ %s%n",index ,sale);
 			++index;
 		}
 		
@@ -129,8 +130,8 @@ public class CashDrawer {
 
 	
 	public void printBalanceReport() {
-		System.out.println("The total is: $" + NumericFormatter.formatPrice(getTotal()));
-		System.out.println("The average is: $" + NumericFormatter.formatPrice(getAverage()));
+		System.out.printf("The total is: $%s %n" ,NumericFormatter.formatPrice(getTotal()));
+		System.out.format("The average is: $%s%n" ,NumericFormatter.formatPrice(getAverage()));
 		System.out.println("The highest sale was: $" + NumericFormatter.formatPrice(getHighest()));
 		System.out.println("The lowest sale was: $" + NumericFormatter.formatPrice(getLowest()));
 		System.out.println("The number of sales was: " + getCount());
