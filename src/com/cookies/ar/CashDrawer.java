@@ -8,6 +8,9 @@ public class CashDrawer {
 
 	private List<Sale> sales = new Vector<Sale>();   // Configure the Vector
 	private double total = 0;
+	private double nonCashTotal = 0;
+
+	private double CashTotal = 0;
 	private float highest = Float.MIN_VALUE;
 	private float lowest = Float.MAX_VALUE;
 
@@ -21,16 +24,38 @@ public class CashDrawer {
 
 	private float differance = 0;
 
-	// --------------------------------- Constractor  -----------------------------------------------
 
-	// --------------------------------- Getter and Setter -----------------------------------------
+// --------------------------------- Getter and Setter -----------------------------------------
+	
+	
 	double getTotal() {
-		return total;
+		return getCashTotal() + getNonCashTotal();
 	}
 
-	void setTotal(double total) {
-		this.total += total;
+	List<Sale> getSales() {
+		return sales;
 	}
+
+	void setSales(List<Sale> sales) {
+		this.sales = sales;
+	}
+
+	double getNonCashTotal() {
+		return nonCashTotal;
+	}
+
+	void setNonCashTotal(double nonCashTotal) {
+		this.nonCashTotal += nonCashTotal;
+	}
+
+	double getCashTotal() {
+		return CashTotal;
+	}
+
+	void setCashTotal(double cashTotal) {
+		this.CashTotal += cashTotal;
+	}
+
 
 	float getHighest() {
 		return highest;
@@ -91,22 +116,29 @@ public class CashDrawer {
 		return getTotal() / getCount();
 	}
 
-	public void addCashSale(String price) {
-		CashSale cashSale = new CashSale(price);
-		sales.add(cashSale);
-		float cashSaleTotal = cashSale.getTotalAsFloat();
-		setTotal(cashSaleTotal);
-		if (cashSaleTotal > highest) {
-			highest = cashSaleTotal;
+//		
+	
+	public void addSale(String type, String price) throws CashDrawerExeption {
+		Sale sale = Sale.createSale(type, price);
+		sales.add(sale);
+		float saleTotal = sale.getTotalAsFloat();
+		if (sale instanceof NonBalancing) {
+			setNonCashTotal(saleTotal);
+		} else {
+			setCashTotal(saleTotal);
 		}
-		if (cashSaleTotal < lowest) {
-			lowest = cashSaleTotal;
+
+		if (saleTotal > getHighest()) {
+			setHighest(saleTotal);
+		}
+		if (saleTotal < getLowest()) {
+			setLowest(saleTotal);
 		}
 	}
 
 	public boolean isBalanced() {
 		boolean isInBalance = false;
-		float combinedCash = (float) (getCashIn() + getTotal());
+		float combinedCash = (float) (getCashIn() + getCashTotal());
 		if (combinedCash == getCashOut()) {
 			isInBalance = true;
 		} else {
@@ -120,6 +152,13 @@ public class CashDrawer {
 		int index = 0;
 		while (iterator.hasNext()) {
 			Sale sale = iterator.next();
+			if (sale instanceof NonBalancing) {
+//				NonBalancing nonCashSale = new NonBalancing();
+//				nonCashSale = (NonBalancing) sale;
+				System.out.print(((NonBalancing)sale).getSaleType());
+			} else {
+				System.out.print("Cash ");
+			}
 //			System.out.println("Sales "+ index + " Total Prices: $"+sale.getTotalAsString());
 //			System.out.println("Sales "+ index + " Total Prices: $"+sale.toString());
 			System.out.format("Sales %d Total Prices: $ %s%n",index ,sale);
@@ -130,7 +169,9 @@ public class CashDrawer {
 
 	
 	public void printBalanceReport() {
-		System.out.printf("The total is: $%s %n" ,NumericFormatter.formatPrice(getTotal()));
+		System.out.printf("The total is              : $%s %n" ,NumericFormatter.formatPrice(getTotal()));
+		System.out.printf("From it, total Cash is    : $%s %n" ,NumericFormatter.formatPrice(getCashTotal()));
+		System.out.printf("From it, total Non Cash is: $%s %n" ,NumericFormatter.formatPrice(getNonCashTotal()));
 		System.out.format("The average is: $%s%n" ,NumericFormatter.formatPrice(getAverage()));
 		System.out.println("The highest sale was: $" + NumericFormatter.formatPrice(getHighest()));
 		System.out.println("The lowest sale was: $" + NumericFormatter.formatPrice(getLowest()));
