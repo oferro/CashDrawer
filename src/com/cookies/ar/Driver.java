@@ -16,14 +16,10 @@ public class Driver {
 			reader.processFile();
 			CashDrawer cashDrawer = reader.getCashDrawer();
 			CashDrawerReportWriter writer = new CashDrawerReportWriter(args[1], cashDrawer);
-			writer.writeBalanceReport();
-			//		for (int i = 2; i < count; i++) {
-//			cashDrawer.addSale(args[i++], args[i]);
-		
-		
-//		cashDrawer.printBalanceReport();
+			writer.writeBalanceReport();	
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		System.out.println("Finished");
 	}
 }

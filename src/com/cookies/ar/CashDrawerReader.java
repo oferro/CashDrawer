@@ -33,7 +33,7 @@ public class CashDrawerReader {
 		try {
 			FileReader fileReader = new FileReader(filename);
 			reader = new BufferedReader(fileReader);
-			CashDrawer cashDrawer = new CashDrawer();
+			this.cashDrawer = new CashDrawer();
 		} catch (FileNotFoundException e) {
 			throw new CashDrawerExeption(e.getMessage());
 		}

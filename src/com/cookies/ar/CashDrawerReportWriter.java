@@ -15,8 +15,8 @@ public class CashDrawerReportWriter {
 	// --------------------------------- Constractor 
 
 	
-	public CashDrawerReportWriter() {
-	}
+//	public CashDrawerReportWriter() {
+//	}
 
 	public CashDrawerReportWriter(String filename, CashDrawer cashDrawer) {
 		super();
@@ -31,8 +31,9 @@ public class CashDrawerReportWriter {
 	private void init(String filename, CashDrawer cashDrawer) {
 		try {
 			FileWriter fileWriter = new FileWriter(filename);
-			BufferedWriter writer = new BufferedWriter(fileWriter);
+			this.writer = new BufferedWriter(fileWriter);
 			this.cashDrawer = cashDrawer;
+			
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to find file: "+ filename);
 			System.exit(1);
